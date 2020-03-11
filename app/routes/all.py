@@ -14,7 +14,8 @@ def all():
         'confirmed': confirmed,
         'deaths':    deaths,
         'recovered': recovered,
-
+        'source': 'https://github.com/ManjurHKhan/coronavirus-tracker-api',
+        'comment': 'Forked from https://github.com/ExpDev07/coronavirus-tracker-api',
         # Latest.
         'latest': {
             'confirmed': confirmed['latest'],

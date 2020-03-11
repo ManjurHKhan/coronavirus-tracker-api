@@ -1,5 +1,8 @@
 # coronavirus-tracker (API)
 
+## This app is modified to run on GCP appengine
+
+
 > This is a fast (< 200ms) and basic API for tracking development of the new coronavirus (COVID-19, SARS-CoV-2). It's written in python using 🍼 Flask.
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
@@ -19,7 +22,42 @@ Getting confirmed cases, deaths, and recoveries:
 GET /all
 ```
 ```json
-{ "latest": { ... }, "confirmed": { ... }, "deaths": { ... }, "recovered": { ... } }
+{
+  "confirmed": {
+    "latest": ...,
+    "locations": {
+      "Mainland China": [ ... ],
+      "US": [...],
+      ...
+    },
+    "last_updated": "2020-03-07T18:08:58.432242Z"
+  },
+  "deaths": {
+    "latest": ...,
+    "locations": {
+      "Mainland China": [ ... ],
+      "US": [...],
+      ...
+    },
+    "last_updated": "2020-03-07T18:08:58.432242Z"
+  },
+  "recovered": {
+    "latest": ...,
+    "locations": {
+      "Mainland China": [ ... ],
+      "US": [...],
+      ...
+    },
+    "last_updated": "2020-03-07T18:08:58.432242Z"
+  },
+  "latest": {
+    "confirmed": ...,
+    "deaths": ...,
+    "recovered": ...
+  },
+  "source": "https://github.com/ManjurHKhan/coronavirus-tracker-api",
+  "comment": "Forked from https://github.com/ExpDev07/coronavirus-tracker-api"
+}
 ```
 
 Getting just confirmed:
@@ -28,10 +66,17 @@ GET /confirmed
 ```
 ```json
 {
-  "latest": 42767,
-  "locations": [ ... ], 
-  "last_updated": "2020-03-07T18:08:58.432242Z", 
-  "source": "https://github.com/ExpDev07/coronavirus-tracker-api" 
+  "confirmed": {
+    "latest": ...,
+    "locations": {
+      "Mainland China": [ ... ],
+      "US": [...],
+      ...
+    },
+    "last_updated": "2020-03-07T18:08:58.432242Z"
+  },
+  "source": "https://github.com/ManjurHKhan/coronavirus-tracker-api",
+  "comment": "Forked from https://github.com/ExpDev07/coronavirus-tracker-api"
 }
 ```
 
@@ -39,10 +84,41 @@ Getting just deaths:
 ```http
 GET /deaths
 ```
+```json
+{
+  "deaths": {
+    "latest": ...,
+    "locations": {
+      "Mainland China": [ ... ],
+      "US": [...],
+      ...
+    },
+    "last_updated": "2020-03-07T18:08:58.432242Z"
+  },
+  "source": "https://github.com/ManjurHKhan/coronavirus-tracker-api",
+  "comment": "Forked from https://github.com/ExpDev07/coronavirus-tracker-api"
+}
+```
+
 
 Getting just recoveries:
 ```http
 GET /recovered
+```
+```json
+{
+  "recovered": {
+    "latest": ...,
+    "locations": {
+      "Mainland China": [ ... ],
+      "US": [...],
+      ...
+    },
+    "last_updated": "2020-03-07T18:08:58.432242Z"
+  },
+  "source": "https://github.com/ManjurHKhan/coronavirus-tracker-api",
+  "comment": "Forked from https://github.com/ExpDev07/coronavirus-tracker-api"
+}
 ```
 
 ## Data
@@ -65,19 +141,51 @@ You will need the following things properly installed on your computer.
 
 * [Python 3](https://www.python.org/downloads/) (with pip)
 * [Flask](https://pypi.org/project/Flask/)
-* [pipenv](https://pypi.org/project/pipenv/)
 
 ## Installation
 
-* `git clone https://github.com/ExpDev07/coronavirus-tracker-api.git`
+* `git clone https://github.com/ManjurHKhan/coronavirus-tracker-api.git`
 * `cd coronavirus-tracker-api`
-* `pipenv shell`
-* `pipenv install`
+* `pip3 install`
 
+## Running using GCP dev_appserver.py
+* `dev_appserver.py .`
+* It will tell you what port to run it on.
 ## Running / Development
 
-* `flask run`
-* Visit your app at [http://localhost:5000](http://localhost:5000).
+* `python3 main.py`
+* Visit your app at [http://localhost:8080](http://localhost:8080).
+
+## Deploying to GCP AppEngine
+
+```bash
+# login to be able to deploy the app
+$ gcloud auth login
+
+# create new GCP project (change name here)
+$ export PROJECT_ID=simple-gae-project-2134
+$ gcloud projects create $PROJECT_ID
+
+# set this project to current project
+$ gcloud config set project $PROJECT_ID
+
+# check your config
+$ gcloud config list
+
+# you need to create the app first in the specific region.
+# omit the region to choose it interactivelly.
+$ gcloud app create --region=us-east1
+
+# now deploy the code
+$ gcloud app deploy
+
+# open app in the browser
+$ gcloud app browse
+
+# tail live log
+$ gcloud app logs tail -s default
+```
+
 
 ### Running Tests
 
