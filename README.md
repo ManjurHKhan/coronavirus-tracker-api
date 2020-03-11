@@ -156,6 +156,37 @@ You will need the following things properly installed on your computer.
 * `python3 main.py`
 * Visit your app at [http://localhost:8080](http://localhost:8080).
 
+## Deploying to GCP AppEngine
+
+```bash
+# login to be able to deploy the app
+$ gcloud auth login
+
+# create new GCP project (change name here)
+$ export PROJECT_ID=simple-gae-project-2134
+$ gcloud projects create $PROJECT_ID
+
+# set this project to current project
+$ gcloud config set project $PROJECT_ID
+
+# check your config
+$ gcloud config list
+
+# you need to create the app first in the specific region.
+# omit the region to choose it interactivelly.
+$ gcloud app create --region=us-east1
+
+# now deploy the code
+$ gcloud app deploy
+
+# open app in the browser
+$ gcloud app browse
+
+# tail live log
+$ gcloud app logs tail -s default
+```
+
+
 ### Running Tests
 
 ### Linting
