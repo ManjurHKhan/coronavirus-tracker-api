@@ -3,7 +3,7 @@
 ## This app is modified to run on GCP appengine
 
 
-> This is a fast (< 200ms) and basic API for tracking development of the new coronavirus (COVID-19, SARS-CoV-2). It's written in python using 🍼 Flask.
+> This is a basic API for tracking development of the new coronavirus (COVID-19, SARS-CoV-2). It's written in python using 🍼 Flask.
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
 ![GitHub stars](https://img.shields.io/github/stars/ExpDev07/coronavirus-tracker-api)
